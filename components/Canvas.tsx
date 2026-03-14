@@ -25,15 +25,7 @@ const Canvas: React.FC<CanvasProps> = ({ slide, design, canvasRef }) => {
         {/* Subtle Background Pattern */}
         <div className="slide-bg-pattern" />
 
-        {/* Logo Section - Modernized */}
-        {design.logoUrl && (
-          <div className="slide-logo-section-modern">
-            <div className="slide-logo-badge">
-              <img src={design.logoUrl} alt="Logo" />
-            </div>
-            <span className="slide-brand-name">التاجر الرقمي</span>
-          </div>
-        )}
+     
 
         {/* Decorative Corner Elements */}
         <div className="slide-corner-decoration slide-corner-tl" />
@@ -44,6 +36,11 @@ const Canvas: React.FC<CanvasProps> = ({ slide, design, canvasRef }) => {
           {slide.image && (
             <div className="slide-image-container-modern">
               <img src={slide.image} className="w-full h-full object-cover" />
+              {design.logoUrl && (
+                <div className="slide-logo-overlay">
+                  <img src={design.logoUrl} alt="Logo" className="slide-logo-overlay-img" />
+                </div>
+              )}
             </div>
           )}
 
@@ -75,7 +72,7 @@ const Canvas: React.FC<CanvasProps> = ({ slide, design, canvasRef }) => {
           <div className="slide-footer-content">
             <span className="slide-footer-brand">منصة التاجر الرقمية</span>
             <div className="slide-footer-divider" />
-            <span className="slide-footer-url">Al-Tajer Digital</span>
+            <span className="slide-footer-url">dtajer.com</span>
           </div>
         </div>
 

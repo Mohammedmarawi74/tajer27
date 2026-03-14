@@ -1,7 +1,7 @@
 import React from 'react';
 import { Slide, DesignConfig, ActiveTab } from '../types';
 import { suggestSimilarQuestion } from '../services/geminiService';
-import { GRADIENTS, AVAILABLE_LOGOS } from '../constants';
+import { GRADIENTS, AVAILABLE_LOGOS, TAG_COLORS } from '../constants';
 
 interface EditorSidebarProps {
   activeTab: ActiveTab;
@@ -111,6 +111,30 @@ const EditorSidebar: React.FC<EditorSidebarProps> = ({
             </div>
 
             <div className="form-group">
+              <label className="form-label">لون التمييز</label>
+              <div className="tag-color-picker">
+                {TAG_COLORS.map((tagColor) => (
+                  <button
+                    key={tagColor.value}
+                    onClick={() => updateSlide({ accentColor: tagColor.value })}
+                    className={`tag-color-option ${slide.accentColor === tagColor.value ? 'active' : ''}`}
+                    style={{ 
+                      backgroundColor: `${tagColor.value}15`,
+                      borderColor: `${tagColor.value}40`,
+                      color: tagColor.value
+                    }}
+                  >
+                    <span 
+                      className="tag-color-dot"
+                      style={{ backgroundColor: tagColor.value }}
+                    />
+                    {tagColor.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="form-group">
               <label className="form-label">صورة الشريحة (اختياري)</label>
               <input
                 type="file"
@@ -123,11 +147,11 @@ const EditorSidebar: React.FC<EditorSidebarProps> = ({
                 {slide.image ? (
                   <div className="file-upload-preview">
                     <img src={slide.image} className="h-20 mx-auto rounded object-cover" />
-                    <button 
+                    <button
                       onClick={(e) => {
-                        e.preventDefault(); 
+                        e.preventDefault();
                         updateSlide({image: undefined});
-                      }} 
+                      }}
                       className="file-upload-remove"
                     >
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,27 +221,25 @@ const EditorSidebar: React.FC<EditorSidebarProps> = ({
 
             <div className="form-group">
               <label className="form-label">شعار المنصة (Logo)</label>
-              
+
               {/* Logo Selection Grid */}
-              <div className="grid grid-cols-2 gap-3 mb-3">
+              <div className="logo-grid">
                 {AVAILABLE_LOGOS.map((logo) => (
                   <button
                     key={logo.id}
                     onClick={() => handleLogoSelect(logo.path)}
-                    className={`relative p-3 bg-[#1a1a1a] border-2 rounded-lg transition-all hover:border-emerald-500/50 ${
-                      design.logoUrl === logo.path 
-                        ? 'border-emerald-500 bg-emerald-500/10' 
-                        : 'border-white/10'
+                    className={`logo-option ${
+                      design.logoUrl === logo.path ? 'active' : ''
                     }`}
                   >
-                    <img 
-                      src={logo.path} 
+                    <img
+                      src={logo.path}
                       alt={logo.name}
                       className="w-12 h-12 mx-auto object-contain"
                     />
-                    <p className="text-xs text-gray-400 mt-2 text-center">{logo.name}</p>
+                    <p className="logo-option-name">{logo.name}</p>
                     {design.logoUrl === logo.path && (
-                      <div className="absolute top-1 right-1 w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center">
+                      <div className="logo-checkmark">
                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
@@ -227,11 +249,10 @@ const EditorSidebar: React.FC<EditorSidebarProps> = ({
                 ))}
               </div>
 
+              {/* Divider */}
+              <div className="divider-text">أو رفع شعار مخصص</div>
+
               {/* Custom Logo Upload */}
-              <div className="text-center my-3">
-                <span className="text-xs text-gray-500">أو رفع شعار مخصص</span>
-              </div>
-              
               <input
                 type="file"
                 accept="image/*"
@@ -249,8 +270,8 @@ const EditorSidebar: React.FC<EditorSidebarProps> = ({
                     </svg>
                   )}
                   <span className="text-xs text-gray-400">
-                    {design.logoUrl && !AVAILABLE_LOGOS.find(l => l.path === design.logoUrl) 
-                      ? 'تغيير الشعار المخصص' 
+                    {design.logoUrl && !AVAILABLE_LOGOS.find(l => l.path === design.logoUrl)
+                      ? 'تغيير الشعار المخصص'
                       : 'رفع شعار خاص'}
                   </span>
                 </div>
@@ -260,7 +281,7 @@ const EditorSidebar: React.FC<EditorSidebarProps> = ({
               {design.logoUrl && (
                 <button
                   onClick={handleRemoveLogo}
-                  className="w-full mt-3 py-2.5 bg-red-500/10 text-red-500 border border-red-500/30 rounded-lg text-xs font-bold hover:bg-red-500/20 transition-all flex items-center justify-center gap-2"
+                  className="remove-logo-btn"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -282,13 +303,13 @@ const EditorSidebar: React.FC<EditorSidebarProps> = ({
               value={design.customCss}
               onChange={(e) => updateDesign({ customCss: e.target.value })}
               className="css-editor"
-              placeholder={`/* مثال */\n.slide-container {\n  transform: rotate(-1deg);\n  filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));\n}\n.question-text {\n  text-decoration: underline;\n}`}
+              placeholder={`/* مثال */\n.slide-container {\n  transform: rotate(-1deg);\n  filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));\n}\n.question-text-modern {\n  text-decoration: underline;\n}`}
             />
             <p className="css-hint">
               استخدم الكلاسات:{' '}
               <code>.slide-container</code>,{' '}
-              <code>.question-text</code>,{' '}
-              <code>.recommendation-text</code>
+              <code>.question-text-modern</code>,{' '}
+              <code>.recommendation-tag-modern</code>
             </p>
           </div>
         )}

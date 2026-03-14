@@ -5,6 +5,7 @@ export interface Slide {
   recommendation: string;
   image?: string;
   bgGradient?: string;
+  accentColor?: string;
 }
 
 export interface DesignConfig {

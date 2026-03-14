@@ -19,78 +19,77 @@ const Canvas: React.FC<CanvasProps> = ({ slide, design, canvasRef }) => {
         id="main-slide"
         className="slide-container"
         style={{
-          background: slide.bgGradient || 'black',
+          background: slide.bgGradient || 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
         }}
       >
-        {/* Decorative Overlay */}
-        <div className="slide-decorative-overlay" />
+        {/* Subtle Background Pattern */}
+        <div className="slide-bg-pattern" />
 
-        {/* Logo Section */}
+        {/* Logo Section - Modernized */}
         {design.logoUrl && (
-          <div className="slide-logo-section">
-            <span className="slide-logo-text">Radar Al-Mustathmir</span>
-            <div className="slide-logo-image">
+          <div className="slide-logo-section-modern">
+            <div className="slide-logo-badge">
               <img src={design.logoUrl} alt="Logo" />
             </div>
+            <span className="slide-brand-name">التاجر الرقمي</span>
           </div>
         )}
 
+        {/* Decorative Corner Elements */}
+        <div className="slide-corner-decoration slide-corner-tl" />
+        <div className="slide-corner-decoration slide-corner-br" />
+
         {/* Content Section */}
-        <div className="slide-content">
+        <div className="slide-content-modern">
           {slide.image && (
-            <div className="slide-image-container">
+            <div className="slide-image-container-modern">
               <img src={slide.image} className="w-full h-full object-cover" />
             </div>
           )}
 
           <h2
-            className="question-text"
+            className="question-text-modern"
             style={{
               fontSize: `${design.fontSize}px`,
-              color: design.textColor,
-              textShadow: '0 4px 12px rgba(0,0,0,0.5)'
+              color: design.textColor || '#0F172A',
             }}
           >
             {slide.question}
           </h2>
 
           <div
-            className="recommendation-text"
-            style={{ color: design.primaryColor }}
+            className="recommendation-tag-modern"
+            style={{ 
+              backgroundColor: `${slide.accentColor || design.primaryColor}15`,
+              borderColor: `${slide.accentColor || design.primaryColor}40`,
+              color: slide.accentColor || design.primaryColor
+            }}
           >
+            <span className="recommendation-icon">✦</span>
             {slide.recommendation}
           </div>
         </div>
 
-        {/* Footer */}
-        <div 
-          className="slide-footer"
-          style={{
-            background: `linear-gradient(90deg, 
-              ${design.primaryColor}33 0%, 
-              ${design.primaryColor}99 50%, 
-              ${design.primaryColor}33 100%)`,
-            borderTop: `1px solid ${design.primaryColor}66`,
-            boxShadow: `0 -2px 15px ${design.primaryColor}33, 0 0 20px ${design.primaryColor}1a`
-          }}
-        >
-          <span className="slide-footer-right">منصة المستثمر</span>
-          <span className="slide-footer-left">al_investor.com</span>
+        {/* Modern Footer */}
+        <div className="slide-footer-modern">
+          <div className="slide-footer-content">
+            <span className="slide-footer-brand">منصة التاجر الرقمية</span>
+            <div className="slide-footer-divider" />
+            <span className="slide-footer-url">Al-Tajer Digital</span>
+          </div>
         </div>
 
-        {/* Dynamic Accents */}
-        <div
-          className="slide-accent-top"
-          style={{ backgroundColor: design.primaryColor }}
-        />
-        <div
-          className="slide-accent-bottom"
-          style={{ backgroundColor: design.primaryColor }}
+        {/* Gradient Accent Bar */}
+        <div 
+          className="slide-accent-bar"
+          style={{ 
+            background: `linear-gradient(90deg, ${slide.accentColor || design.primaryColor}, ${design.secondaryColor})`
+          }}
         />
       </div>
 
-      {/* Decorative Glow behind the card */}
-      <div className="slide-glow" />
+      {/* Soft Glow Effect */}
+      <div className="slide-glow-modern" />
     </div>
   );
 };

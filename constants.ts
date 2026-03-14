@@ -5,33 +5,42 @@ export const INITIAL_SLIDES: Slide[] = [
     id: '1',
     question: 'الركائز الاستراتيجية للتحول الرقمي؟',
     recommendation: 'تحليل البيانات والنمو الاقتصادي المستدام',
-    bgGradient: 'radial-gradient(circle at center, #111827, #000000)'
+    bgGradient: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+    accentColor: '#2563EB'
   },
   {
     id: '2',
     question: 'كيف يمكن تقليل المخاطر الاستثمارية؟',
     recommendation: 'تنويع المحفظة الاستثمارية واستخدام أدوات التحليل الذكية',
-    bgGradient: 'radial-gradient(circle at center, #064e3b, #000000)'
+    bgGradient: 'linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%)',
+    accentColor: '#10B981'
   }
 ];
 
 export const INITIAL_DESIGN: DesignConfig = {
-  primaryColor: '#10b981',
-  secondaryColor: '#064e3b',
-  textColor: '#ffffff',
-  accentColor: '#10b981',
+  primaryColor: '#2563EB',
+  secondaryColor: '#1E40AF',
+  textColor: '#0F172A',
+  accentColor: '#2563EB',
   customCss: '',
-  fontSize: 48,
+  fontSize: 44,
   logoUrl: '/logooo/logo-1.png'
 };
 
 export const GRADIENTS = [
-  'radial-gradient(circle at center, #111827, #000000)',
-  'radial-gradient(circle at center, #064e3b, #000000)',
-  'radial-gradient(circle at center, #312e81, #000000)',
-  'radial-gradient(circle at center, #4c1d95, #000000)',
-  'radial-gradient(circle at center, #7c2d12, #000000)',
-  'linear-gradient(135deg, #000000 0%, #1a1a1a 100%)',
+  'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
+  'linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 100%)',
+  'linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%)',
+  'linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%)',
+  'linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%)',
+  'linear-gradient(135deg, #FFF7ED 0%, #FFFFFF 100%)',
+];
+
+export const TAG_COLORS = [
+  { name: 'Mint Green', value: '#10B981' },
+  { name: 'Soft Purple', value: '#A855F7' },
+  { name: 'Electric Blue', value: '#2563EB' },
+  { name: 'Orange Alert', value: '#F97316' },
 ];
 
 export const AVAILABLE_LOGOS = [
